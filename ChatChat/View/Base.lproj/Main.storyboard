@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="lZ1-6V-0AU">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatCell" id="lZ1-6V-0AU">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lZ1-6V-0AU" id="XaT-Dw-A1R">
@@ -55,7 +55,14 @@
                             <outlet property="delegate" destination="z84-l1-Y9c" id="38p-t7-xq8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ChatChat" id="WEJ-b4-s5h"/>
+                    <navigationItem key="navigationItem" title="ChatChat" id="WEJ-b4-s5h">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="G6I-n5-wVq">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addNewChatPressed:" destination="z84-l1-Y9c" id="J1e-u9-xGB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="hh1-CE-BEp" kind="show" identifier="goToMessages" id="ubv-cj-IZA"/>
                     </connections>
