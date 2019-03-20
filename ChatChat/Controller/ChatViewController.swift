@@ -51,10 +51,19 @@ class ChatViewController: UITableViewController {
     
     
     
-    
-    
-    
     //MARK: - Chat Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToMessages", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! MessagesViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedChat = chats?[indexPath.row]
+        }
+    }
     
     
     
