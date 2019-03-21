@@ -100,6 +100,9 @@
                                         <outlet property="delegate" destination="hh1-CE-BEp" id="HhW-Lz-RtA"/>
                                     </connections>
                                 </tableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="hh1-CE-BEp" id="prd-ZG-UJZ"/>
+                                </connections>
                             </tableView>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBe-vP-0Rd" userLabel="messageBar">
                                 <rect key="frame" x="0.0" y="592" width="375" height="75"/>
@@ -143,6 +146,9 @@
                         <viewLayoutGuide key="safeArea" id="Dwh-cf-8uJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Messages" id="Xxv-BV-6O7"/>
+                    <connections>
+                        <outlet property="messageTableView" destination="hJ3-PQ-5BZ" id="pdi-sc-vnq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ke-CF-fVu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

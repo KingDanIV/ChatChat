@@ -20,8 +20,10 @@ class ChatViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        retrieveChats()
         loadChats()
+        retrieveChats()
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
         
     }
     
@@ -89,7 +91,11 @@ class ChatViewController: UITableViewController {
         
         chats = realm.objects(Chat.self)
         
+        print("load chats successful")
+        
         tableView.reloadData()
+        
+        print("tableView reloaded")
         
     }
     
@@ -105,11 +111,15 @@ class ChatViewController: UITableViewController {
             let contact = snapshotValue["Contact"]!
             let sender =  snapshotValue["Sender"]!
             
-            let chat = Chat()
-            chat.contact = contact
-            chat.sender = sender
+            let newChat = Chat()
+            newChat.contact = contact
+            newChat.sender = sender
             
-            self.save(chat: chat)
+            if self.chats?.index(of: newChat) == nil {
+//                self.save(chat: newChat)
+                print(newChat.contact)
+                print(self.chats?.index(of: newChat))
+            }
         }
     }
     
@@ -126,11 +136,22 @@ class ChatViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Start Chat", style: .default) { (action) in
             
-            let newChat = Chat()
-            newChat.contact = textField.text!
-            newChat.sender = Auth.auth().currentUser?.email as String!
+            let chatDB = Database.database().reference().child("Chats")
             
-            self.save(chat: newChat)
+            let chatDict = [ "Contact": textField.text!,
+                             "Sender": Auth.auth().currentUser?.email as String! ]
+            
+            
+            chatDB.childByAutoId().setValue(chatDict, withCompletionBlock: {
+                (error, reference) in
+                
+                if error != nil {
+                    print(error!)
+                } else {
+                    print("New chat added successfully!")
+                }
+                
+            })
             
         }
         
