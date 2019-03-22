@@ -8,22 +8,25 @@
 
 import UIKit
 import Firebase
-import RealmSwift
+
 
 class ChatViewController: UITableViewController {
     
-    let realm = try! Realm()
+    var chats = [Chat]()
     
-    var chats : Results<Chat>?
+    
+    var fakeChat = ["First Chat","Second Chat","Third Chat"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        loadChats()
+//        let currentUser = Contact()
+//        currentUser.email = Auth.auth().currentUser?.email as String!
+//        currentUser.nickname = "Me"
+    
+        
         retrieveChats()
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
         
     }
     
@@ -32,7 +35,7 @@ class ChatViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return chats?.count ?? 1
+        return chats.count
         
     }
     
@@ -40,11 +43,7 @@ class ChatViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath)
         
-        if let chat = chats?[indexPath.row] {
-        
-            cell.textLabel?.text = chat.contact
-        
-        }
+        cell.textLabel?.text = chats[indexPath.row].contact
         
         return cell
         
@@ -63,7 +62,7 @@ class ChatViewController: UITableViewController {
         let destinationVC = segue.destination as! MessagesViewController
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedChat = chats?[indexPath.row]
+            destinationVC.selectedChat = chats[indexPath.row]
         }
     }
     
@@ -74,30 +73,30 @@ class ChatViewController: UITableViewController {
     
     //MARK: - Data Manipulation Methods
     
-    func save(chat: Chat) {
-        
-        do {
-            try realm.write {
-                realm.add(chat)
-            }
-        } catch {
-            print("Error saving new chat, \(error)")
-        }
-        
-        self.tableView.reloadData()
-    }
-    
-    func loadChats() {
-        
-        chats = realm.objects(Chat.self)
-        
-        print("load chats successful")
-        
-        tableView.reloadData()
-        
-        print("tableView reloaded")
-        
-    }
+//    func save(chat: Chat) {
+//
+//        do {
+//            try realm.write {
+//                realm.add(chat)
+//            }
+//        } catch {
+//            print("Error saving new chat, \(error)")
+//        }
+//
+//        self.tableView.reloadData()
+//    }
+//
+//    func loadChats() {
+//
+//        chats = realm.objects(Chat.self)
+//
+//        print("load chats successful")
+//
+//        tableView.reloadData()
+//
+//        print("tableView reloaded")
+//
+//    }
     
     
     func retrieveChats() {
@@ -115,12 +114,20 @@ class ChatViewController: UITableViewController {
             newChat.contact = contact
             newChat.sender = sender
             
-            if self.chats?.index(of: newChat) == nil {
-//                self.save(chat: newChat)
-                print(newChat.contact)
-                print(self.chats?.index(of: newChat))
+            if let nickname = snapshotValue["Nickname"] {
+                newChat.nickname = nickname
             }
+            
+            self.chats.append(newChat)
+            
+            print(newChat.contact)
+            print(newChat.sender)
+            print(self.chats.count)
+            
+            self.tableView.reloadData()
         }
+        
+        
     }
     
     
@@ -136,13 +143,13 @@ class ChatViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Start Chat", style: .default) { (action) in
             
-            let chatDB = Database.database().reference().child("Chats")
+            let contactDB = Database.database().reference().child("Chats")
             
-            let chatDict = [ "Contact": textField.text!,
-                             "Sender": Auth.auth().currentUser?.email as String! ]
+            let contactDict = [ "Contact": textField.text!,
+                                "Sender": Auth.auth().currentUser?.email as String!]
             
             
-            chatDB.childByAutoId().setValue(chatDict, withCompletionBlock: {
+            contactDB.childByAutoId().setValue(contactDict, withCompletionBlock: {
                 (error, reference) in
                 
                 if error != nil {

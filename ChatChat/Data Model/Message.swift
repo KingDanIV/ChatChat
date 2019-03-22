@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import RealmSwift
 
 
-class Message: Object {
-    @objc dynamic var messageBody : String = ""
-    @objc dynamic var sender: String = ""
-    @objc dynamic var recipient: String = ""
-    @objc dynamic var dateSent: Date?
-    var parentChat = LinkingObjects(fromType: Chat.self, property: "messages")
+class Message {
+    var messageBody : String = ""
+    var sender: String = ""
+    var recipient: String = ""
+    var dateSent: Date?
+//    var parentChat = [Chat]()
 }

@@ -8,13 +8,11 @@
 
 import Foundation
 import UIKit
-import RealmSwift
+import Firebase
 
 class MessagesViewController: UIViewController, UITableViewDataSource {
     
-    var selectedMessages : Results<Message>?
-    
-    let realm = try! Realm()
+    var selectedMessages = [Message]()
     
     var selectedChat : Chat? {
         didSet {
@@ -22,6 +20,8 @@ class MessagesViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    
+    //MARK - Link Up IB
     @IBOutlet var messageTableView: UITableView!
     
     
@@ -50,7 +50,7 @@ class MessagesViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return selectedMessages?.count ?? 1
+        return selectedMessages.count
         
         
     }
@@ -59,8 +59,11 @@ class MessagesViewController: UIViewController, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
         
+        let message = selectedMessages[indexPath.row]
         
-        cell.messageBody.text = selectedMessages?[indexPath.row].messageBody ?? "No Messages To Display"
+        
+        cell.messageBody.text = message.messageBody
+        cell.senderUsername.text = message.sender
         
         
         return cell
@@ -81,7 +84,27 @@ class MessagesViewController: UIViewController, UITableViewDataSource {
     
     func loadMessages() {
         
-            selectedMessages = selectedChat?.messages.sorted(byKeyPath: "dateSent", ascending: true)
+//            selectedMessages = selectedChat?.messages.sorted(byKeyPath: "dateSent", ascending: true)
+        
+        let messageDB = Database.database().reference().child("Messages")
+        
+        messageDB.observe(.childAdded) { (snapshot) in
+            
+            let snapshotValue = snapshot.value as! Dictionary<String,Any>
+            
+            let text = snapshotValue["MessageBody"] as! String
+            let sender = snapshotValue["Sender"]! as! String
+            let recipient = snapshotValue["Recipient"]! as! String
+            let dateSent = snapshotValue["DateSent"]! as! Date
+            
+            let message = Message()
+            message.messageBody = text
+            message.sender = sender
+            message.recipient = recipient
+            message.dateSent = dateSent
+            
+            
+        }
         
     }
     

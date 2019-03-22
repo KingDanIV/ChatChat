@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import RealmSwift
 
-class Chat: Object {
-    @objc dynamic var contact : String = ""
-    @objc dynamic var sender: String = ""
-    @objc dynamic var nickname: String = ""
-    let messages = List<Message>()
+class Chat {
+//    var contacts = [Contact]()
+    var contact : String = ""
+    var sender : String = ""
+    var nickname : String = ""
+//    let messages : [Message] = []
 }
 
 

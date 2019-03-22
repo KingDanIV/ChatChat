@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		371D76AA224418B3000C28D5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371D76A9224418B3000C28D5 /* Contact.swift */; };
 		37976F72223800BA005E8DB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37976F71223800BA005E8DB5 /* AppDelegate.swift */; };
 		37976F74223800BA005E8DB5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37976F73223800BA005E8DB5 /* ChatViewController.swift */; };
 		37976F77223800BA005E8DB5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37976F75223800BA005E8DB5 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		371D76A9224418B3000C28D5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		37976F6E223800BA005E8DB5 /* ChatChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37976F71223800BA005E8DB5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37976F73223800BA005E8DB5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				37FDFE0B223CE876003A3BC5 /* Chat.swift */,
 				37FDFE0D223CE88A003A3BC5 /* Message.swift */,
+				371D76A9224418B3000C28D5 /* Contact.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				37FDFE0E223CE88A003A3BC5 /* Message.swift in Sources */,
 				37976F74223800BA005E8DB5 /* ChatViewController.swift in Sources */,
 				37976F72223800BA005E8DB5 /* AppDelegate.swift in Sources */,
+				371D76AA224418B3000C28D5 /* Contact.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +435,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XUAH7W4BJK;
 				INFOPLIST_FILE = ChatChat/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielearl.ChatChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -447,7 +454,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XUAH7W4BJK;
 				INFOPLIST_FILE = ChatChat/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielearl.ChatChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
